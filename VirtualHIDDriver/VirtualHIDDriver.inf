@@ -1,0 +1,85 @@
+;
+; VirtualHIDDriver.inf
+;
+
+[Version]
+Signature="$WINDOWS NT$"
+Class=System
+ClassGuid={4d36e97d-e325-11ce-bfc1-08002be10318}
+Provider=%ManufacturerName%
+CatalogFile=VirtualHIDDriver.cat
+DriverVer= ; TODO: set DriverVer in stampinf property pages
+PnpLockdown=1
+
+[DestinationDirs]
+DefaultDestDir = 12
+VirtualHIDDriver_Device_CoInstaller_CopyFiles = 11
+
+[SourceDisksNames]
+1 = %DiskName%,,,""
+
+[SourceDisksFiles]
+VirtualHIDDriver.sys  = 1,,
+WdfCoInstaller$KMDFCOINSTALLERVERSION$.dll=1 ; make sure the number matches with SourceDisksNames
+
+;*****************************************
+; Install Section
+;*****************************************
+
+[Manufacturer]
+%ManufacturerName%=Standard,NT$ARCH$
+
+[Standard.NT$ARCH$]
+%VirtualHIDDriver.DeviceDesc%=VirtualHIDDriver_Device, Root\VirtualHIDDriver
+
+[VirtualHIDDriver_Device.NT]
+CopyFiles=Drivers_Dir
+
+[VirtualHIDDriver_Device.NT.HW]
+AddReg=VirtualHIDDriver_Device.NT.AddReg
+
+[VirtualHIDDriver_Device.NT.AddReg]
+HKR,,"LowerFilters",0x00010008,"vhf" ; REG_MULTI_SZ
+
+[Drivers_Dir]
+VirtualHIDDriver.sys
+
+;-------------- Service installation
+[VirtualHIDDriver_Device.NT.Services]
+AddService = VirtualHIDDriver,%SPSVCINST_ASSOCSERVICE%, VirtualHIDDriver_Service_Inst
+
+; -------------- VirtualHIDDriver driver install sections
+[VirtualHIDDriver_Service_Inst]
+DisplayName    = %VirtualHIDDriver.SVCDESC%
+ServiceType    = 1               ; SERVICE_KERNEL_DRIVER
+StartType      = 3               ; SERVICE_DEMAND_START
+ErrorControl   = 1               ; SERVICE_ERROR_NORMAL
+ServiceBinary  = %12%\VirtualHIDDriver.sys
+LoadOrderGroup = Extended Base
+
+;
+;--- VirtualHIDDriver_Device Coinstaller installation ------
+;
+
+[VirtualHIDDriver_Device.NT.CoInstallers]
+AddReg=VirtualHIDDriver_Device_CoInstaller_AddReg
+CopyFiles=VirtualHIDDriver_Device_CoInstaller_CopyFiles
+
+[VirtualHIDDriver_Device_CoInstaller_AddReg]
+HKR,,CoInstallers32,0x00010000, "WdfCoInstaller$KMDFCOINSTALLERVERSION$.dll,WdfCoInstaller"
+
+[VirtualHIDDriver_Device_CoInstaller_CopyFiles]
+WdfCoInstaller$KMDFCOINSTALLERVERSION$.dll
+
+[VirtualHIDDriver_Device.NT.Wdf]
+KmdfService =  VirtualHIDDriver, VirtualHIDDriver_wdfsect
+
+[VirtualHIDDriver_wdfsect]
+KmdfLibraryVersion = $KMDFVERSION$
+
+[Strings]
+SPSVCINST_ASSOCSERVICE= 0x00000002
+ManufacturerName="Virtual HID Inc."
+DiskName = "VirtualHIDDriver Installation Disk"
+VirtualHIDDriver.DeviceDesc = "Virtual HID Driver Device"
+VirtualHIDDriver.SVCDESC = "Virtual HID Driver Service" 
