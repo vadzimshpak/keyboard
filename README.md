@@ -252,76 +252,76 @@ The driver includes WPP tracing support, and the log can be viewed with the foll
 - Verify that all dependencies are linked correctly
 
 
-### 4. 日志查看
+### 4. Log inspection
 
-- **事件查看器**: Windows日志 → 系统
-- **设备管理器**: 查看设备状态和错误代码
-- **DebugView**: 查看内核调试输出
+- **Event Viewer**: Windows Logs → System
+- **Device Manager**: Check device status and error codes
+- **DebugView**: View kernel debug output
 
-## 🔧 已修复的Bug
+## 🔧 Fixed bugs
 
-### 编译问题
-- ✅ **WPP跟踪宏重复定义**: 移除了Driver.h中的重复跟踪宏定义
-- ✅ **头文件包含错误**: 修复了头文件依赖关系
+### Build issues
+- ✅ **Duplicate WPP trace macro definition**: Removed the duplicate trace macro declarations from `Driver.h`
+- ✅ **Header include errors**: Fixed incorrect header dependency relationships
 
-### 运行时问题
-- ✅ **VHF设备初始化失败**: 改进了错误处理和资源清理逻辑
-- ✅ **内存泄漏**: 添加了完整的设备上下文清理函数
-- ✅ **键盘映射不完整**: 扩展支持A-Z、0-9和常用特殊按键
-- ✅ **鼠标数据范围错误**: 添加了输入值范围检查和限制
+### Runtime issues
+- ✅ **VHF device initialization failure**: Improved error handling and resource cleanup logic
+- ✅ **Memory leak**: Added complete device context cleanup routines
+- ✅ **Incomplete keyboard mapping**: Expanded support for A-Z, 0-9, and common special keys
+- ✅ **Mouse data range errors**: Added input value range validation and clamping
 
-### 配置问题
-- ✅ **INF文件配置错误**: 修正了设备类别和VHF过滤器配置
-- ✅ **符号链接创建失败**: 改进了符号链接创建的错误处理
+### Configuration issues
+- ✅ **INF file configuration errors**: Corrected device class and VHF filter settings
+- ✅ **Symbolic link creation failure**: Improved symbolic link creation error handling
 
-### 用户体验问题
-- ✅ **错误信息不明确**: 添加了详细的错误代码解释
-- ✅ **中文显示问题**: 修复了控制台中文编码问题
-- ✅ **输入验证缺失**: 添加了用户输入验证和错误恢复
+### User experience issues
+- ✅ **Unclear error messages**: Added detailed error code explanations
+- ✅ **Encoding issues in console output**: Fixed console output encoding for non-English text
+- ✅ **Missing input validation**: Added user input validation and recovery logic
 
-## 安全考虑
+## Security considerations
 
-### 开发和测试
-- 仅在隔离的测试环境中使用
-- 定期备份测试系统
-- 使用虚拟机进行开发和调试
+### Development and testing
+- Use only in isolated test environments
+- Back up the test system regularly
+- Use a virtual machine for development and debugging
 
-### 生产部署
-- 必须获得微软数字签名
-- 遵循最小权限原则
-- 实施适当的访问控制
+### Production deployment
+- Microsoft digital signature is required
+- Follow the principle of least privilege
+- Implement appropriate access controls
 
-## 合规和法律
+## Compliance and legal
 
-本项目仅用于**教育和合法研究目的**：
-- 学习Windows驱动程序开发
-- 理解HID设备工作原理
-- 开发辅助功能工具
-- 研究输入设备技术
+This project is intended solely for **educational and lawful research purposes**:
+- Learning Windows driver development
+- Understanding how HID devices work
+- Developing accessibility tools
+- Researching input device technologies
 
-**禁止用于**：
-- 游戏作弊或自动化
-- 规避安全系统
-- 恶意软件开发
-- 其他非法用途
+**Not permitted for**:
+- Game cheating or automation
+- Bypassing security systems
+- Malware development
+- Other unlawful activities
 
-## 技术参考
+## Technical references
 
 - [Windows Driver Kit (WDK)](https://docs.microsoft.com/en-us/windows-hardware/drivers/)
 - [Virtual HID Framework (VHF)](https://docs.microsoft.com/en-us/windows-hardware/drivers/hid/virtual-hid-framework--vhf-)
 - [USB HID Usage Tables](https://www.usb.org/document-library/hid-usage-tables-122)
 - [KMDF Documentation](https://docs.microsoft.com/en-us/windows-hardware/drivers/wdf/)
 
-## 许可证
+## License
 
-本项目仅供学习和研究使用。使用者需要遵守当地法律法规。
+This project is for educational and research use only. Users must comply with all local laws and regulations.
 
-## 贡献
+## Contributing
 
-欢迎提交问题报告和改进建议。请确保所有贡献都符合教育和合法使用的目的。
+Issues and improvement suggestions are welcome. Please ensure that all contributions align with the project’s educational and lawful use goals.
 
 ---
 
-**版本历史**:
-- v1.1: Bug修复版本，改进稳定性和易用性
-- v1.0: 初始版本，基本功能实现 
+**Version history**:
+- v1.1: Bug fix release, improved stability and usability
+- v1.0: Initial release, basic functionality implemented 
