@@ -1,253 +1,256 @@
-# 虚拟HID驱动程序项目
+# Virtual HID Driver Project
 
-这是一个基于 Windows KMDF (Kernel Mode Driver Framework) 和 VHF (Virtual HID Framework) 的虚拟键盘鼠标驱动程序实现。
+This is an implementation of a virtual keyboard and mouse driver based on Windows KMDF (Kernel Mode Driver Framework) and VHF (Virtual HID Framework).
 
-## 🆕 最新更新
+## 🆕 Latest updates
 
-**版本 1.1 - Bug修复版本**
-- ✅ 修复了WPP跟踪宏重复定义的编译错误
-- ✅ 改进了VHF设备初始化和错误处理
-- ✅ 扩展了键盘映射，支持A-Z字母、0-9数字和常用按键
-- ✅ 添加了完整的设备生命周期管理和资源清理
-- ✅ 改进了用户态客户端的错误处理和界面体验
-- ✅ 修复了INF文件配置问题
-- ✅ 添加了自动化安装/卸载脚本
+**Version 1.1 - Bug fix release**
+- ✅ Fixed the WPP trace macro redefinition compile error
+- ✅ Improved VHF device initialization and error handling
+- ✅ Expanded keyboard mapping to support A-Z letters, 0-9 digits, and common keys
+- ✅ Added complete device lifecycle management and resource cleanup
+- ✅ Improved user-mode client error handling and interface experience
+- ✅ Fixed INF file configuration issues
+- ✅ Added automated install/uninstall scripts
 
-## 项目结构
+## Project structure
 
 ```
 keyboard/
-├── VirtualHIDDriver/          # 内核模式驱动程序
-│   ├── Driver.cpp            # 驱动主入口点
-│   ├── Driver.h              # 驱动头文件
-│   ├── Device.cpp            # 设备创建和VHF初始化
-│   ├── Device.h              # 设备相关定义
-│   ├── Trace.h               # WPP跟踪定义
-│   ├── VirtualHIDDriver.inf  # 驱动安装文件
-│   └── VirtualHIDDriver.vcxproj # Visual Studio项目文件
-├── UserModeApp/              # 用户态测试应用程序
-│   └── VirtualHIDClient.cpp  # 测试客户端程序
-├── install_driver.bat        # 自动安装脚本
-├── uninstall_driver.bat      # 自动卸载脚本
-├── build_client.bat          # 客户端编译脚本
-├── VirtualHIDSolution.sln    # Visual Studio解决方案
-└── README.md                 # 项目说明文档
+├── VirtualHIDDriver/          # Kernel-mode driver
+│   ├── Driver.cpp            # Driver entry point
+│   ├── Driver.h              # Driver header file
+│   ├── Device.cpp            # Device creation and VHF initialization
+│   ├── Device.h              # Device-related definitions
+│   ├── Trace.h               # WPP trace definitions
+│   ├── VirtualHIDDriver.inf  # Driver installation file
+│   └── VirtualHIDDriver.vcxproj # Visual Studio project file
+├── UserModeApp/              # User-mode test application
+│   └── VirtualHIDClient.cpp  # Test client program
+├── install_driver.bat        # Automated installation script
+├── uninstall_driver.bat      # Automated uninstall script
+├── build_client.bat          # Client build script
+├── VirtualHIDSolution.sln    # Visual Studio solution
+└── README.md                 # Project documentation
 ```
 
-## 功能特性
+## Feature set
 
-- **虚拟键盘设备**: 支持A-Z字母、0-9数字、空格、回车、ESC等常用按键
-- **虚拟鼠标设备**: 支持鼠标移动、左中右键点击和滚轮操作
-- **KMDF框架**: 使用现代Windows驱动框架，提供稳定性和可维护性
-- **VHF集成**: 利用微软虚拟HID框架，确保与系统的兼容性
-- **用户态通信**: 通过IOCTL接口与用户应用程序通信
-- **标准HID报告**: 完全符合USB HID规范的报告描述符
-- **资源管理**: 完整的设备生命周期管理和自动资源清理
-- **错误处理**: 全面的错误检查和状态报告
+- **Virtual keyboard device**: Supports A-Z letters, 0-9 digits, space, Enter, Esc, and other common keys
+- **Virtual mouse device**: Supports mouse movement, left/middle/right button clicks, and wheel actions
+- **KMDF framework**: Uses the modern Windows driver framework for stability and maintainability
+- **VHF integration**: Uses Microsoft’s Virtual HID framework to ensure compatibility with the system
+- **User-mode communication**: Communicates with user applications through the IOCTL interface
+- **Standard HID reports**: Fully compliant HID report descriptor for USB HID specification
+- **Resource management**: Complete device lifecycle management and automatic resource cleanup
+- **Error handling**: Comprehensive error checks and status reporting
 
-## 开发环境要求
+## Development environment requirements
 
-### 必需工具
+### Required tools
 - **Microsoft Visual Studio 2019/2022**
 - **Windows Driver Kit (WDK) 10**
 - **Windows 10 SDK**
 
-### 系统要求
-- **开发系统**: Windows 10/11 (64位)
-- **目标系统**: Windows 10/11 (支持VHF框架)
-- **测试环境**: 推荐使用虚拟机进行驱动程序测试
+### System requirements
+- **Development system**: Windows 10/11 (64-bit)
+- **Target system**: Windows 10/11 (supports the VHF framework)
+- **Test environment**: A virtual machine is recommended for driver testing
 
-## 快速开始
+## Quick start
 
-### 🚀 自动化安装（推荐）
+### 🚀 Automated installation (recommended)
 
-1. **编译驱动程序**：
-   - 打开 `VirtualHIDSolution.sln`
-   - 选择 x64 平台和 Debug/Release 配置
-   - 按 F7 构建解决方案
+1. **Build the driver**:
+   - Open `VirtualHIDSolution.sln`
+   - Select the x64 platform and Debug/Release configuration
+   - Press F7 to build the solution
 
-2. **编译客户端程序**：
+2. **Build the client program**:
    ```cmd
-   # 在项目根目录运行
+   # Run from the project root
    build_client.bat
    ```
 
-3. **安装驱动程序**：
+3. **Install the driver**:
    ```cmd
-   # 以管理员权限运行
+   # Run as administrator
    install_driver.bat
    ```
 
-4. **测试功能**：
+4. **Test the functionality**:
    ```cmd
-   # 以管理员权限运行
+   # Run as administrator
    VirtualHIDClient.exe
    ```
 
-5. **卸载驱动程序**（可选）：
+5. **Uninstall the driver** (optional):
    ```cmd
-   # 以管理员权限运行
+   # Run as administrator
    uninstall_driver.bat
    ```
 
-### 📋 手动安装
+### 📋 Manual installation
 
-1. **准备测试环境**：
+1. **Prepare the test environment**:
    ```cmd
-   # 以管理员权限运行
+   # Run as administrator
    bcdedit /set testsigning on
-   # 重启系统
+   # Restart the system
    shutdown /r /t 0
    ```
 
-2. **安装驱动程序**：
+2. **Install the driver**:
    ```cmd
-   # 方法1: 使用pnputil (推荐)
+   # Method 1: Use pnputil (recommended)
    pnputil /add-driver VirtualHIDDriver\VirtualHIDDriver.inf /install
    
-   # 方法2: 使用设备管理器
-   # 1. 打开设备管理器
-   # 2. 选择"操作" > "添加传统硬件"
-   # 3. 选择"安装我手动从列表选择的硬件"
-   # 4. 选择"从磁盘安装"，指向 VirtualHIDDriver.inf
+   # Method 2: Use Device Manager
+   # 1. Open Device Manager
+   # 2. Select "Action" > "Add legacy hardware"
+   # 3. Select "Install the hardware that I manually select from a list"
+   # 4. Select "Install from disk" and point to VirtualHIDDriver.inf
    ```
 
-3. **创建设备实例**：
+3. **Create a device instance**:
    ```cmd
-   # 使用devcon工具创建根枚举设备
+   # Use the devcon tool to create a root-enumerated device
    devcon install VirtualHIDDriver\VirtualHIDDriver.inf Root\VirtualHIDDriver
    ```
 
-## 使用说明
+## Usage instructions
 
-### 测试程序功能
+### Test program features
 
-测试程序 `VirtualHIDClient.exe` 提供以下功能：
+The test program `VirtualHIDClient.exe` provides the following features:
 
-1. **键盘输入测试**: 发送单个按键 (如A键)
-2. **鼠标移动测试**: 模拟鼠标移动
-3. **鼠标点击测试**: 模拟鼠标按钮点击
-4. **文本输入测试**: 模拟输入字符串 "HELLO"
-5. **滚轮测试**: 模拟鼠标滚轮操作
-6. **数字键测试**: 测试0-9数字键
-7. **特殊键测试**: 测试空格、回车、ESC键
+1. **Keyboard input test**: Sends a single key press (for example, A)
+2. **Mouse movement test**: Simulates mouse movement
+3. **Mouse click test**: Simulates mouse button clicks
+4. **Text input test**: Simulates entering the string "HELLO"
+5. **Wheel test**: Simulates mouse wheel actions
+6. **Number key test**: Tests 0-9 keys
+7. **Special key test**: Tests Space, Enter, and Esc keys
 
-### API使用示例
+### API usage example
 
 ```cpp
-// 连接到驱动程序
+// Connect to the driver
 VirtualHIDClient client;
 if (!client.Initialize()) {
-    // 处理连接失败
+    // Handle connection failure
     return;
 }
 
-// 发送键盘输入
-client.SendKeyboardInput('A', true);   // 按下A键
-client.SendKeyboardInput('A', false);  // 释放A键
+// Send keyboard input
+client.SendKeyboardInput('A', true);   // Press A
+client.SendKeyboardInput('A', false);  // Release A
 
-// 发送鼠标输入
-client.SendMouseInput(10, 10, 0, 0);   // 移动鼠标
-client.SendMouseInput(0, 0, 0x01, 0);  // 按下左键
-client.SendMouseInput(0, 0, 0, 0);     // 释放所有按键
+// Send mouse input
+client.SendMouseInput(10, 10, 0, 0);   // Move the mouse
+client.SendMouseInput(0, 0, 0x01, 0);  // Press left button
+client.SendMouseInput(0, 0, 0, 0);     // Release all buttons
 
-// 检查连接状态
+// Check connection status
 if (client.IsConnected()) {
-    // 设备已连接
+    // Device connected
 }
 ```
 
-## 架构设计
+## Architecture design
 
-### 驱动程序架构
+### Driver architecture
 
 ```
 ┌─────────────────┐
-│  用户态应用程序  │
+│ User-mode app   │
 └─────────┬───────┘
           │ IOCTL
 ┌─────────▼───────┐
-│  虚拟HID驱动    │
+│ Virtual HID      │
+│ driver          │
 ├─────────────────┤
-│ • IOCTL处理     │
-│ • 输入转换      │
-│ • VHF接口       │
-│ • 资源管理      │
+│ • IOCTL handling│
+│ • Input convert │
+│ • VHF interface │
+│ • Resource mgmt │
 └─────────┬───────┘
           │ VHF API
 ┌─────────▼───────┐
 │ Windows VHF     │
 │ (Vhf.sys)       │
 └─────────┬───────┘
-          │ HID协议
+          │ HID protocol
 ┌─────────▼───────┐
-│ HID类驱动程序   │
+│ HID class       │
+│ driver          │
 │ (HidClass.sys)  │
 └─────────┬───────┘
-          │ 标准输入
+          │ Standard input
 ┌─────────▼───────┐
-│  Windows系统    │
-│  & 应用程序     │
+│ Windows system  │
+│ & applications  │
 └─────────────────┘
 ```
 
-### 核心组件
+### Core components
 
-1. **Driver.cpp**: 驱动程序入口点和生命周期管理
-2. **Device.cpp**: 设备创建、VHF初始化和IOCTL处理
-3. **HID报告描述符**: 标准键盘和鼠标的HID规范实现
-4. **用户态客户端**: IOCTL通信和输入模拟的示例实现
-5. **资源管理**: 自动设备清理和错误恢复
+1. **Driver.cpp**: Driver entry point and lifecycle management
+2. **Device.cpp**: Device creation, VHF initialization, and IOCTL handling
+3. **HID report descriptor**: Standard keyboard and mouse HID implementation
+4. **User-mode client**: Example implementation of IOCTL communication and input simulation
+5. **Resource management**: Automatic device cleanup and error recovery
 
-### 通信机制
+### Communication mechanism
 
-- **IOCTL接口**: 用户态与内核态通信
-- **VHF框架**: 内核态与Windows HID子系统集成
-- **符号链接**: 提供用户态访问设备的路径 (`\\.\VirtualHIDDevice`)
+- **IOCTL interface**: Communication between user mode and kernel mode
+- **VHF framework**: Integration between kernel mode and the Windows HID subsystem
+- **Symbolic link**: Provides the device path for user-mode access (`\\.\VirtualHIDDevice`)
 
-## 调试和故障排除
+## Debugging and troubleshooting
 
-### 1. 启用驱动程序验证器
+### 1. Enable the driver verifier
 
 ```cmd
 verifier /flags 0x209BB /driver VirtualHIDDriver.sys
 ```
 
-### 2. WPP跟踪
+### 2. WPP tracing
 
-驱动程序包含WPP跟踪支持，可以使用以下工具查看日志：
+The driver includes WPP tracing support, and the log can be viewed with the following tools:
 - WPA (Windows Performance Analyzer)
 - TraceView
-- 自定义跟踪会话
+- Custom trace sessions
 
-### 3. 常见问题
+### 3. Common issues
 
-**问题**: 用户态程序无法连接到驱动程序
-**解决**: 
-- 确认驱动程序已正确安装
-- 检查符号链接是否创建成功
-- 确认以管理员权限运行
-- 运行 `install_driver.bat` 重新安装
+**Issue**: The user-mode program cannot connect to the driver
+**Solution**:
+- Confirm the driver is installed correctly
+- Check whether the symbolic link was created successfully
+- Confirm that it is running with administrator privileges
+- Reinstall using `install_driver.bat`
 
-**问题**: 驱动程序加载失败
-**解决**: 
-- 检查系统是否启用了测试签名模式
-- 确认WDK版本兼容性
-- 查看事件查看器中的错误信息
-- 使用 `bcdedit /set testsigning on` 启用测试签名
+**Issue**: The driver fails to load
+**Solution**:
+- Check whether test signing mode is enabled on the system
+- Confirm WDK version compatibility
+- Check the error information in Event Viewer
+- Enable test signing with `bcdedit /set testsigning on`
 
-**问题**: 输入没有被系统识别
-**解决**: 
-- 确认VHF设备已成功创建
-- 检查HID报告描述符格式
-- 验证输入报告的数据格式
-- 查看驱动程序的跟踪日志
+**Issue**: Input is not recognized by the system
+**Solution**:
+- Confirm that the VHF device was created successfully
+- Check the HID report descriptor format
+- Verify the input report data format
+- Review the driver trace logs
 
-**问题**: 编译错误
-**解决**:
-- 确保安装了正确版本的WDK和SDK
-- 检查项目配置和平台设置
-- 验证所有依赖项是否正确链接
+**Issue**: Build errors
+**Solution**:
+- Ensure the correct WDK and SDK versions are installed
+- Check the project configuration and platform settings
+- Verify that all dependencies are linked correctly
+
 
 ### 4. 日志查看
 
